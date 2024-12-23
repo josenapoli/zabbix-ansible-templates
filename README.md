@@ -1,12 +1,11 @@
-# zabbix-ansible-templates
-Carga de templates de zabbix con Ansible
+# Carga de templates de zabbix con Ansible
 
+## VERSIONES:
 
-VERSIONES:
-OS:
+# OS:
 CentOS Stream release 9
 
-Ansible Version:
+# Ansible Version:
 ansible [core 2.15.11]
   config file = None
   configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
@@ -17,10 +16,10 @@ ansible [core 2.15.11]
   jinja version = 3.1.3
   libyaml = True
 
-Ansible Collection:
+# Ansible Collection:
 community.zabbix              2.3.1
 
-Run:
+# Run:
 
 ansible-playbook modify_template.yml --tags set_zabbix_credentials,import_templates_from_xml -i inventario.yml
 
