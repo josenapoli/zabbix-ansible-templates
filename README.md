@@ -10,7 +10,7 @@ Zabbix Server 6.4
 
 # Ansible Version:
 
-ansible [core 2.15.11]
+ansible [core 2.15.11]  
   config file = None  
   configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']  
   ansible python module location = /usr/local/lib/python3.9/site-packages/ansible  
