@@ -1,0 +1,6 @@
+all:
+  hosts:
+    <IP-zabbix-server>:
+      ansible_user: user-system
+      ansible_ssh_pass: 1110
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
