@@ -1,0 +1,62 @@
+- name: Playbook para Zabbix
+  hosts: all
+  tasks:
+    - name: Establecer credenciales para la API de Zabbix
+      tags: [set_zabbix_credentials]  # Tag para establecer credenciales
+      ansible.builtin.set_fact:
+        zabbix_user: "Admin"  # Usuario para Zabbix
+        zabbix_pass: "PASSWORD"  # Contraseña para Zabbix
+
+    - name: Importar templates desde XML
+      tags: [import_templates_from_xml]
+      vars:
+        ansible_network_os: community.zabbix.zabbix
+        ansible_connection: httpapi
+        ansible_httpapi_port: 80
+        ansible_httpapi_use_ssl: false
+        ansible_httpapi_validate_certs: false
+        ansible_zabbix_url_path: "zabbix"
+        ansible_host: IP-zabbix-server
+        ansible_user: "{{ zabbix_user }}"  # Usar zabbix_user para la API de Zabbix
+        ansible_httpapi_pass: "{{ zabbix_pass }}"  # Usar zabbix_pass para la API de Zabbix
+      community.zabbix.zabbix_template:
+        template_xml: "{{ lookup('file', 'template.xml') }}"
+        state: present
+
+    - name: Configurar macros en un template existente
+      tags: [configure_macros]
+      vars:
+        ansible_network_os: community.zabbix.zabbix
+        ansible_connection: httpapi
+        ansible_httpapi_port: 80
+        ansible_httpapi_use_ssl: false
+        ansible_httpapi_validate_certs: false
+        ansible_zabbix_url_path: "zabbix"
+        ansible_host: IP-zabbix-server
+        ansible_user: "{{ zabbix_user }}"
+        ansible_httpapi_pass: "{{ zabbix_pass }}"
+      community.zabbix.zabbix_template:
+        template_name: Template
+        macros:
+          - macro: "{$TEST_MACRO}"
+            value: "Ejemplo"
+        state: present
+
+    - name: Añadir etiquetas a un template existente
+      tags: [add_tags]
+      vars:
+        ansible_network_os: community.zabbix.zabbix
+        ansible_connection: httpapi
+        ansible_httpapi_port: 80
+        ansible_httpapi_use_ssl: false
+        ansible_httpapi_validate_certs: false
+        ansible_zabbix_url_path: "zabbix"
+        ansible_host: IP-zabbix-server
+        ansible_user: "{{ zabbix_user }}"
+        ansible_httpapi_pass: "{{ zabbix_pass }}"
+      community.zabbix.zabbix_template:
+        template_name: Template
+        tags:
+          - tag: class
+            value: application
+        state: present
