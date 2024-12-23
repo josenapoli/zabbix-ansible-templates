@@ -5,6 +5,9 @@
 # OS:
 CentOS Stream release 9
 
+# Zabbix Version:
+Zabbix Server 6.4
+
 # Ansible Version:
 ansible [core 2.15.11]
   config file = None
